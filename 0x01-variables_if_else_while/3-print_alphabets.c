@@ -1,22 +1,25 @@
 #include <stdio.h>
+
 /**
- * main - prints alphabets.
+ * main - Print a-z and A-Z using lowercase and uppercase
  *
  * Return: Always 0 (success)
  */
 int main(void)
 {
-	char alp[52] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-		int i;
+	int n;
 
-{
-	char alp[52] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-		int i;
+	for (n = 'a'; n <= 'z'; ++n)
+	{
+		putchar(n);
+	}
 
-		for (i = 0; i < 52; i++)
-		{
-			putchar(alp[i]);
-		}
-		putchar('\n');
-			return (0);
+	for (n = 'A'; n <= 'Z'; ++n)
+	{
+		putchar(n);
+	}
+
+	putchar(10);
+
+	return (0);
 }
