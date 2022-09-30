@@ -1,1 +1,1 @@
-Static
+Readmefor static
