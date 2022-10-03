@@ -1,65 +1,54 @@
 #include "main.h"
-#include <stdlib.h>
-/**
- * ch_free_grid - frees a 2 dimensional array.
- * @grid: multidimensiona array.
- * @height: height of the array.
- *
- * Return: no return
- */
-void ch_free_grid(char **grid, unsigned int height)
-{
-	if (grid != NULL && height != 0)
-	{
-		for (; height > 0; height--)
-			free(grid[height]);
-		free(grid[height]);
-		free(grid);
-	}
-}
 
 /**
- * strtow - splits a string into words.
- * @str: string.
+ * strtow - splits a string into two words
+ * @str: the string input
  *
- * Return: pointer of an array of integers.
+ * Return: array of two words
  */
+
 char **strtow(char *str)
 {
-	char **aout;
-	unsigned int c, height, i, j, a1;
+	char **word;
+	int len;
 
-	if (str == NULL || *str == '\0')
+	int i = 0, row = 0, col = 0, len1 = 0;
+
+	if ((str == NULL) || (*str == '\0'))
 		return (NULL);
-	for (c = height = 0; str[c] != '\0'; c++)
-		if (str[c] != ' ' && (str[c + 1] == ' ' || str[c + 1] == '\0'))
-			height++;
-	aout = malloc((height + 1) * sizeof(char *));
-	if (aout == NULL || height == 0)
-	{
-		free(aout);
+
+	word = malloc(sizeof(char *) * 3);
+	if (word == NULL)
 		return (NULL);
-	}
-	for (i = a1 = 0; i < height; i++)
+
+	while (*(str + len1) != ' ')
+		len1 += 1;
+
+	len = strlen(str);
+	word[0] = malloc((len1 + 2) * sizeof(char));
+	word[1] = malloc((len - len1 + 1) * sizeof(char));
+	word[2] = malloc(1 * sizeof(char));
+
+	if ((word[0] == NULL) || (word[1] == NULL) || (word[2] == NULL))
+		return (NULL);
+
+	while (*(str + i) != '\0')
 	{
-		for (c = a1; str[c] != '\0'; c++)
+		if (*(str + i) == ' ')
 		{
-			if (str[c] == ' ')
-				a1++;
-			if (str[c] != ' ' && (str[c + 1] == ' ' || str[c + 1] == '\0'))
-			{
-				aout[i] = malloc((c - a1 + 2) * sizeof(char));
-				if (aout[i] == NULL)
-				{
-					ch_free_grid(aout, i);
-					return (NULL);
-				}
-				break;
-			}
+			word[col][row] = '\0';
+			col = 1;
+			row = 0;
+			continue;
 		}
-		for (j = 0; a1 <= c; a1++, j++)
-			aout[i][j] = str[a1];
-		aout[i][j] = '\0';
+
+		word[col][row] = *(str + i);
+		i += 1;
+		row += 1;
 	}
-	aout[i] = NULL;
-	return (aout);
+
+	word[col][row] = '\0';
+	word[2][0] = '\0';
+
+	return (word);
+}
