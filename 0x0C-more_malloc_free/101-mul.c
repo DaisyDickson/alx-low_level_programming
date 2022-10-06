@@ -1,13 +1,12 @@
+#include <stdlib.h>
 #include "main.h"
-
+#include <stdio.h>
 /**
- * main - multiplies two positive numbers
- * @argc: integer number of command line arguments
- * @argv: command line arguments array
- *
- * Return: 0
- */
-
+* main - multiplies two positive numbers
+* @argc: n arguments
+* @argv: args
+* Return: int
+*/
 int main(int argc, char *argv[])
 {
 	unsigned long mul;
@@ -18,28 +17,18 @@ int main(int argc, char *argv[])
 		printf("Error\n");
 		exit(98);
 	}
-
-	for (i = 0; argv[1][i] != '\0'; i++)
+	for (i = 1; i < argc; i++)
 	{
-		if (argv[1][i] < 48 || argv[1][i] > 57)
+		for (j = 0; argv[i][j] != '\0'; j++)
 		{
-			printf("Error\n");
-			exit(98);
+			if (argv[i][j] > 57 || argv[i][j] < 48)
+			{
+				printf("Error\n");
+				exit(98);
+			}
 		}
 	}
-
-	for (j = 0; argv[2][j] != '\0'; j++)
-	{
-		if (argv[2][j] < 48 || argv[2][j] > 57)
-		{
-			printf("Error\n");
-			exit(98);
-		}
-	}
-
 	mul = atol(argv[1]) * atol(argv[2]);
-
 	printf("%lu\n", mul);
-
 	return (0);
 }
