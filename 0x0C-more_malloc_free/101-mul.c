@@ -1,45 +1,57 @@
+#include <stdio.h>
+#include <ctype.h>
+#include <string.h>
+#include <stdlib.h>
 #include "main.h"
 
 /**
- * main - multiplies two positive numbers
- * @argc: integer number of command line arguments
- * @argv: command line arguments array
- *
- * Return: 0
+ * main - Entry point
+ * @argc: holds number of variables
+ * @argv: holds command strings
+ * Return: Always 0 (Success)
  */
 
 int main(int argc, char *argv[])
 {
-	unsigned long mul;
-	int i, j;
+	int mul = 0;
 
-	if (argc != 3)
+	if (check_alpha(argv[1]) == 1 ||
+		check_alpha(argv[2]) == 1)
 	{
 		printf("Error\n");
 		exit(98);
 	}
 
-	for (i = 0; argv[1][i] != '\0'; i++)
+	if (argc == 3)
 	{
-		if (argv[1][i] < 48 || argv[1][i] > 57)
-		{
-			printf("Error\n");
-			exit(98);
-		}
+		mul = atoi(argv[1]) * atoi(argv[2]);
+		printf("%d\n", mul);
 	}
-
-	for (j = 0; argv[2][j] != '\0'; j++)
+	else
 	{
-		if (argv[2][j] < 48 || argv[2][j] > 57)
-		{
-			printf("Error\n");
-			exit(98);
-		}
+		printf("Error\n");
+		exit(98);
 	}
+	return (0);
+}
 
-	mul = atol(argv[1]) * atol(argv[2]);
+/**
+ * check_alpha - checks if string contains
+ * an alphabet
+ * @s: string to check
+ * Return: 1 or 0
+ */
 
-	printf("%lu\n", mul);
+int check_alpha(char *s)
+{
+	int len, i;
 
+	len = strlen(s);
+
+	for (i = 0; i < len; i++)
+	{
+		if (isalpha(*(s + i)))
+		return (1);
+	}
 	return (0);
 }
