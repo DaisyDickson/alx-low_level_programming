@@ -1,33 +1,41 @@
-#include <stdlib.h>
-#include <stdio.h>
 #include "main.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 /**
- * string_nconcat - concatenates two strings
- * @s1:stirng 1
- * @s2:string 2
- * @n: n bytesofstring 2
- * Return: pointer
+ * string_nconcat - concatenate the first n bytes of a string to another
+ *
+ * @str1: pointer to the first string
+ *
+ * @str2: pointer to the second string
+ *
+ * @size: size of str2 to be concatenated
+ *
+ * Return: pointer to the concatenated string
  */
 
-char *string_nconcat(char *s1, char *s2, unsigned int n)
+char *string_nconcat(char *str1, char *str2, unsigned int size)
 {
-	char *ptr, *empt;
-	unsigned int i, k;
 
-	empt = "";
-	if (s1 == NULL)
-		s1 = empt;
-	if (s2 == NULL)
-		s2 = empt;
-	for (i = 0; s1[i] != '\0'; i++)
-		ptr = malloc((i + (n * sizeof(*s2) + 1) * sizeof(*ptr)));
+	unsigned int dist1, dist2;
+
+	char *ptr;
+
+	if (str1 == NULL)
+		str1 = "";
+
+	if (str2 == NULL)
+		str2 = "";
+
+	dist1 = strlen(str1);
+	dist2 = strlen(str2) <= size ? strlen(str2) : size;
+	ptr = malloc(dist1 + dist2 + 1);
+
 	if (ptr == NULL)
 		return (NULL);
-	for (i = 0; s1[i] != '\0'; i++)
-		ptr[i] = s1[i];
-	for (k = 0; s2[k] != '\0' && k < n; k++, i++)
-		ptr[i] = s2[k];
-	ptr[i] = '\0';
+	strcpy(ptr, str1);
+	strncat(ptr, str2, size);
+
 	return (ptr);
 }
