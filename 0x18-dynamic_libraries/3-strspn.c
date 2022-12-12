@@ -1,32 +1,29 @@
 #include "main.h"
-#include <stdio.h>
 
 /**
- * _strspn - returns number of bytes in the initial sengment s
- * @s: for the count action
- * @accept: parameter for char
- * Return: number of bytes;
+ * _strspn - gets the length of a prefix substring
+ * @s: substring
+ * @accept: second substring
+ * Return: number of bytes
  */
 
 unsigned int _strspn(char *s, char *accept)
 {
-	unsigned int num;
-	int i, j, t;
+	unsigned int i, j, bool;
 
-	i = 0;
-	while (s[i] != '\0')
+	for (i = 0; *(s + i) != '\0'; i++)
 	{
-		t = 0;
-		for (j = 0; accept[j] != '\0'; j++)
+		bool = 1;
+		for (j = 0; *(accept + j) != '\0'; j++)
 		{
-			if (s[i] == accept[j])
-				t = 1;
+			if (*(s + i) == *(accept + j))
+			{
+				bool = 0;
+				break;
+			}
 		}
-		j = 0;
-		if (t == 0)
+		if (bool == 1)
 			break;
-		num++;
-		i++;
 	}
 	return (i);
 }
